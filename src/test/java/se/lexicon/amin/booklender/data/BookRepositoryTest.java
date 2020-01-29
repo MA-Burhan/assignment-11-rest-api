@@ -58,6 +58,10 @@ public class BookRepositoryTest {
         List<Book> bookList = testRepository.findByAvailable(false);
 
         assertTrue(bookList.size() == 1);
+
+        Book book = bookList.get(0);
+        assertEquals(testObjectId, book.getBookId());
+        assertEquals("Test book 1", book.getTitle());
     }
 
     @Test
@@ -66,14 +70,22 @@ public class BookRepositoryTest {
         List<Book> bookList = testRepository.findByReserved(false);
 
         assertTrue(bookList.size() == 1);
+
+        Book book = bookList.get(0);
+        assertEquals(testObjectId, book.getBookId());
+        assertEquals("Test book 1", book.getTitle());
     }
 
     @Test
     public void test_findByTitle() {
 
-        Optional<Book> book = testRepository.findByTitle("Test book 1");
+        Optional<Book> OptionalBook = testRepository.findByTitle("Test book 1");
 
-        assertTrue(book.isPresent());
+        assertTrue(OptionalBook.isPresent());
+
+        Book book = OptionalBook.get();
+        assertEquals(testObjectId, book.getBookId());
+        assertEquals("Test book 1", book.getTitle());
     }
 
 

@@ -10,6 +10,7 @@ import se.lexicon.amin.booklender.entity.Loan;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -79,6 +80,35 @@ public class LoanRepositoryTest {
 
     }
 
+    @Test
+    public void test_findBy_UserId() {
+
+        int userId = testObject.getLoanTaker().getUserId();
+
+        List<Loan> loanList = testRepository.findByLoanTakerUserId(userId);
+
+        assertTrue(loanList.size() == 1);
+
+    }
+
+    @Test
+    public void test_findBy_BookId() {
+
+        int bookId = testObject.getBook().getBookId();
+
+        List<Loan> loanList = testRepository.findByBookBookId(bookId);
+
+        assertTrue(loanList.size() == 1);
+
+    }
+
+    @Test
+    public void test_findBy_terminated() {
+
+        List<Loan> loanList = testRepository.findByTerminated(false);
+
+        assertTrue(loanList.size() == 1);
+    }
     @Test
     public void test_findAll() {
 
