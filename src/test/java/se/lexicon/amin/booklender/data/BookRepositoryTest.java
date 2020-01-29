@@ -7,6 +7,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import se.lexicon.amin.booklender.entity.Book;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,17 +32,15 @@ public class BookRepositoryTest {
 
     }
 
-    @Test
-    public void check_that_testObject_is_persisted() {
-
-
-        assertTrue(testObjectId > 0);
-        assertTrue(testRepository.findById(testObjectId).isPresent());
-
-    }
+//    @Test
+//    public void check_that_testObject_is_persisted() {
+//
+//        assertTrue(testObjectId > 0);
+//        assertTrue(testRepository.findById(testObjectId).isPresent());
+//    }
 
     @Test
-    public void test_findById() {
+    public void check_that_obj_is_persisted() {
 
         Book book = testRepository.findById(testObjectId).get();
 
@@ -51,6 +51,31 @@ public class BookRepositoryTest {
         assertEquals("Test book 1 description", book.getDescription());
 
     }
+
+    @Test
+    public void test_findByAvailable() {
+
+        List<Book> bookList = testRepository.findByAvailable(false);
+
+        assertTrue(bookList.size() == 1);
+    }
+
+    @Test
+    public void test_findByReserved() {
+
+        List<Book> bookList = testRepository.findByReserved(false);
+
+        assertTrue(bookList.size() == 1);
+    }
+
+    @Test
+    public void test_findByTitle() {
+
+        Optional<Book> book = testRepository.findByTitle("Test book 1");
+
+        assertTrue(book.isPresent());
+    }
+
 
     @Test
     public void test_findAll() {

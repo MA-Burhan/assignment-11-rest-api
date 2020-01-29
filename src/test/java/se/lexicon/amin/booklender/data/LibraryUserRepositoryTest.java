@@ -28,18 +28,16 @@ public class LibraryUserRepositoryTest {
 
     }
 
-    @Test
-    public void check_that_testObject_is_persisted() {
-
-
-        assertTrue(testObjectId > 0);
-        assertTrue(testRepository.findById(testObjectId).isPresent());
-
-    }
+//    @Test
+//    public void check_that_testObject_is_persisted() {
+//
+//        assertTrue(testObjectId > 0);
+//        assertTrue(testRepository.findById(testObjectId).isPresent());
+//    }
 
 
     @Test
-    public void test_findById() {
+    public void check_that_obj_is_persisted() {
 
         LibraryUser user = testRepository.findById(testObjectId).get();
 
@@ -59,7 +57,6 @@ public class LibraryUserRepositoryTest {
         assertEquals(LocalDate.parse("2020-01-01"), user.getRegDate());
         assertEquals("test1", user.getName());
         assertEquals("test1@email.com", user.getEmail());
-
 
     }
 

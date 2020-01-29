@@ -42,33 +42,32 @@ public class LoanRepositoryTest {
        testObjectId = testObject.getLoanId();
     }
 
+//    @Test
+//    public void check_that_testObject_is_persisted() {
+//
+//        assertTrue(testObjectId > 0);
+//        assertTrue(testRepository.findById(testObjectId).isPresent());
+//
+//    }
+//
+//    @Test
+//    public void check_that_libraryUser_is_persisted(){
+//
+//        int id = libraryUser.getUserId();
+//        assertTrue(id > 0);
+//        assertTrue(libraryUserRepository.findById(id).isPresent());
+//    }
+//
+//    @Test
+//    public void check_that_book_is_persisted(){
+//
+//        int id = book.getBookId();
+//        assertTrue(id > 0);
+//        assertTrue(bookRepository.findById(id).isPresent());
+//    }
+
     @Test
-    public void check_that_testObject_is_persisted() {
-
-
-        assertTrue(testObjectId > 0);
-        assertTrue(testRepository.findById(testObjectId).isPresent());
-
-    }
-
-    @Test
-    public void check_that_libraryUser_is_persisted(){
-
-        int id = libraryUser.getUserId();
-        assertTrue(id > 0);
-        assertTrue(libraryUserRepository.findById(id).isPresent());
-    }
-
-    @Test
-    public void check_that_book_is_persisted(){
-
-        int id = book.getBookId();
-        assertTrue(id > 0);
-        assertTrue(bookRepository.findById(id).isPresent());
-    }
-
-    @Test
-    public void test_findById() {
+    public void check_that_objects_is_persisted() {
 
         Loan loan = testRepository.findById(testObjectId).get();
 
