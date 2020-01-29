@@ -1,15 +1,34 @@
 package se.lexicon.amin.booklender.entity;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
+@Entity
 public class Loan {
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long loanId;
+
+    @ManyToOne(cascade={
+            CascadeType.DETACH,
+            CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH})
+    @JoinColumn(name="loan_taker_id")
     private LibraryUser loanTaker;
+
+    @ManyToOne(cascade={
+            CascadeType.DETACH,
+            CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH})
+    @JoinColumn(name="book_id")
     private Book book;
+
     private LocalDate loanDate;
     private boolean terminated;
 
