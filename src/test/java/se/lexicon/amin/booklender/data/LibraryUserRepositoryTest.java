@@ -16,27 +16,32 @@ public class LibraryUserRepositoryTest {
     @Autowired
     private LibraryUserRepository testRepository;
 
-    private LibraryUser testObject1;
-    private int testObject1Id;
+    private LibraryUser testObject;
+    private int testObjectId;
 
-    private LibraryUser testObject2;
-    private int testObject2Id;
 
     @BeforeEach
     void setup() {
-        testObject1 = new LibraryUser(LocalDate.parse("2020-01-01"), "test1", "test1@email.com");
-        testObject1 = testRepository.save(testObject1);
-        testObject1Id = testObject1.getUserId();
+        testObject = new LibraryUser(LocalDate.parse("2020-01-01"), "test1", "test1@email.com");
+        testObject = testRepository.save(testObject);
+        testObjectId = testObject.getUserId();
 
-        testObject2 = new LibraryUser(LocalDate.parse("2020-01-02"), "test2", "test2@email.com");
-        testObject2 = testRepository.save(testObject2);
-        testObject2Id = testObject2.getUserId();
     }
+
+    @Test
+    public void check_that_testObject_is_persisted() {
+
+
+        assertTrue(testObjectId > 0);
+        assertTrue(testRepository.findById(testObjectId).isPresent());
+
+    }
+
 
     @Test
     public void test_findById() {
 
-        LibraryUser user = testRepository.findById(testObject1Id).get();
+        LibraryUser user = testRepository.findById(testObjectId).get();
 
         assertEquals(LocalDate.parse("2020-01-01"), user.getRegDate());
         assertEquals("test1", user.getName());
@@ -47,17 +52,17 @@ public class LibraryUserRepositoryTest {
     @Test
     public void test_findAll() {
 
-        assertTrue(testRepository.findAll().size() == 2);
+        assertTrue(testRepository.findAll().size() == 1);
     }
 
     @Test
     public void test_update_user() {
 
-        testObject1.setEmail("updatedtest1@email.com");
+        testObject.setEmail("updatedtest1@email.com");
 
-        testRepository.save(testObject1);
+        testRepository.save(testObject);
 
-        LibraryUser user = testRepository.findById(testObject1Id).get();
+        LibraryUser user = testRepository.findById(testObjectId).get();
 
         assertEquals(LocalDate.parse("2020-01-01"), user.getRegDate());
         assertEquals("test1", user.getName());
@@ -68,10 +73,10 @@ public class LibraryUserRepositoryTest {
     @Test
     public void test_delete_user() {
 
-        testRepository.deleteById(testObject2Id);
+        testRepository.deleteById(testObjectId);
 
-        assertFalse(testRepository.findById(testObject2Id).isPresent());
-        assertTrue(testRepository.findAll().size() == 1);
+        assertFalse(testRepository.findById(testObjectId).isPresent());
+        assertTrue(testRepository.findAll().isEmpty());
 
     }
 }

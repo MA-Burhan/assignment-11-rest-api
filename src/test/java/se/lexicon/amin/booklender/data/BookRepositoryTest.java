@@ -4,12 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.transaction.annotation.Transactional;
 import se.lexicon.amin.booklender.entity.Book;
-import se.lexicon.amin.booklender.entity.LibraryUser;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,28 +16,33 @@ public class BookRepositoryTest {
     @Autowired
     private BookRepository testRepository;
 
-    private Book testObject1;
-    private int testObject1Id;
+    private Book testObject;
+    private int testObjectId;
 
-    private Book testObject2;
-    private int testObject2Id;
+
 
     @BeforeEach
     void setup() {
 
-        testObject1 = new Book("Test book 1", 11, BigDecimal.valueOf(1), "Test book 1 description");
-        testObject1 = testRepository.save(testObject1);
-        testObject1Id = testObject1.getBookId();
+        testObject = new Book("Test book 1", 11, BigDecimal.valueOf(1), "Test book 1 description");
+        testObject = testRepository.save(testObject);
+        testObjectId = testObject.getBookId();
 
-        testObject2 = new Book("Test book 2", 22, BigDecimal.valueOf(2), "Test book 2 description");
-        testObject2 = testRepository.save(testObject2);
-        testObject2Id = testObject2.getBookId();
+    }
+
+    @Test
+    public void check_that_testObject_is_persisted() {
+
+
+        assertTrue(testObjectId > 0);
+        assertTrue(testRepository.findById(testObjectId).isPresent());
+
     }
 
     @Test
     public void test_findById() {
 
-        Book book = testRepository.findById(testObject1Id).get();
+        Book book = testRepository.findById(testObjectId).get();
 
         assertEquals("Test book 1", book.getTitle());
         assertEquals(11, book.getMaxLoanDays());
@@ -52,17 +54,17 @@ public class BookRepositoryTest {
     @Test
     public void test_findAll() {
 
-        assertTrue(testRepository.findAll().size() == 2);
+        assertTrue(testRepository.findAll().size() == 1);
     }
 
     @Test
     public void test_update_book() {
 
-        testObject1.setTitle("Updated book");
+        testObject.setTitle("Updated book");
 
-        testRepository.save(testObject1);
+        testRepository.save(testObject);
 
-        Book book = testRepository.findById(testObject1Id).get();
+        Book book = testRepository.findById(testObjectId).get();
 
         assertEquals("Updated book", book.getTitle());
         assertEquals(11, book.getMaxLoanDays());
@@ -74,13 +76,11 @@ public class BookRepositoryTest {
     @Test
     public void test_delete_book() {
 
-        testRepository.deleteById(testObject2Id);
+        testRepository.deleteById(testObjectId);
 
-        assertFalse(testRepository.findById(testObject2Id).isPresent());
+        assertFalse(testRepository.findById(testObjectId).isPresent());
 
-        System.out.println("delete book" + testRepository.findAll().size());
-
-        assertTrue(testRepository.findAll().size() == 1);
+        assertTrue(testRepository.findAll().isEmpty());
 
     }
 }
