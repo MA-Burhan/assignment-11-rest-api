@@ -44,6 +44,7 @@ public class BookRepositoryTest {
 
         Book book = testRepository.findById(testObjectId).get();
 
+        assertEquals(testObjectId, book.getBookId());
         assertEquals("Test book 1", book.getTitle());
         assertEquals(11, book.getMaxLoanDays());
         assertEquals(BigDecimal.valueOf(1), book.getFinePerDay());

@@ -72,6 +72,7 @@ public class LoanRepositoryTest {
 
         Loan loan = testRepository.findById(testObjectId).get();
 
+        assertEquals(testObjectId, loan.getLoanId());
         assertEquals(libraryUser, loan.getLoanTaker());
         assertEquals(book, loan.getBook());
         assertEquals(LocalDate.parse("2020-01-01"), loan.getLoanDate());
@@ -98,7 +99,7 @@ public class LoanRepositoryTest {
         assertEquals(book, loan.getBook());
         assertEquals(LocalDate.parse("2020-01-01"), loan.getLoanDate());
         assertTrue(loan.isTerminated());
-        
+
     }
 
     @Test

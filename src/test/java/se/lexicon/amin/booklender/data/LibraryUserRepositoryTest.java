@@ -43,9 +43,23 @@ public class LibraryUserRepositoryTest {
 
         LibraryUser user = testRepository.findById(testObjectId).get();
 
+        assertEquals(testObjectId, user.getUserId());
         assertEquals(LocalDate.parse("2020-01-01"), user.getRegDate());
         assertEquals("test1", user.getName());
         assertEquals("test1@email.com", user.getEmail());
+
+    }
+
+    @Test
+    public void test_findByEmail() {
+
+        LibraryUser user = testRepository.findByEmail("test1@email.com").get();
+
+        assertEquals(testObjectId, user.getUserId());
+        assertEquals(LocalDate.parse("2020-01-01"), user.getRegDate());
+        assertEquals("test1", user.getName());
+        assertEquals("test1@email.com", user.getEmail());
+
 
     }
 
