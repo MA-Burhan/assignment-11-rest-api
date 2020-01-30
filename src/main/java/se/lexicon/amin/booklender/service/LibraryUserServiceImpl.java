@@ -1,6 +1,7 @@
 package se.lexicon.amin.booklender.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import se.lexicon.amin.booklender.data.LibraryUserRepository;
 import se.lexicon.amin.booklender.dto.LibraryUserDto;
 import se.lexicon.amin.booklender.entity.LibraryUser;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Service
 public class LibraryUserServiceImpl implements LibraryUserService {
 
     @Autowired

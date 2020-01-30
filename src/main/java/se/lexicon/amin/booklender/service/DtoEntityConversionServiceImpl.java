@@ -1,5 +1,6 @@
 package se.lexicon.amin.booklender.service;
 
+import org.springframework.stereotype.Service;
 import se.lexicon.amin.booklender.dto.BookDto;
 import se.lexicon.amin.booklender.dto.LibraryUserDto;
 import se.lexicon.amin.booklender.dto.LoanDto;
@@ -7,6 +8,7 @@ import se.lexicon.amin.booklender.entity.Book;
 import se.lexicon.amin.booklender.entity.LibraryUser;
 import se.lexicon.amin.booklender.entity.Loan;
 
+@Service
 public class DtoEntityConversionServiceImpl implements DtoEntityConversionService {
 
     @Override
