@@ -8,7 +8,6 @@ import se.lexicon.amin.booklender.entity.Book;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -79,11 +78,11 @@ public class BookRepositoryTest {
     @Test
     public void test_findByTitle() {
 
-        Optional<Book> OptionalBook = testRepository.findByTitle("Test book 1");
+        List<Book> bookList = testRepository.findByTitle("Test book 1");
 
-        assertTrue(OptionalBook.isPresent());
+        assertTrue(bookList.size() == 1);
 
-        Book book = OptionalBook.get();
+        Book book = bookList.get(0);
         assertEquals(testObjectId, book.getBookId());
         assertEquals("Test book 1", book.getTitle());
     }
