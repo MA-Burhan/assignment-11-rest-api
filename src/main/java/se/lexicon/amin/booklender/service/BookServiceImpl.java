@@ -30,7 +30,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookDto> findByAvailable(boolean available) {
-        List<Book> books = repository.findByReserved(available);
+        List<Book> books = repository.findByAvailable(available);
 
         List<BookDto> bookDtos = books.stream().map(conversionService::bookToDto).collect(Collectors.toList());
 
